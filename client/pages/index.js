@@ -10,7 +10,7 @@ export default function Home(props) {
 
   return (
     <div>
-      <h1 className="atm-title">Welcome to the CIS ATM</h1>
+      <h1 className="atm-title">Welcome to the Bank of CIS ATM</h1>
       {!validUser && (
         <div>
           <form>

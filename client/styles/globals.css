@@ -21,9 +21,11 @@ a {
   }
   body {
     color: white;
-    background: black;
+    background: blue;
   }
 }
+
+/* styling for landing page */
 .atm-title {
   text-align: center;
 }
@@ -41,7 +43,7 @@ a {
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
+  border: 1px;
   height: 150px;
   width: 100%;
   align-content: center;
@@ -49,5 +51,19 @@ a {
 
 .home-link__link {
   flex: 1 auto;
-  border: 1px solid black;
+  padding-block: 2px;
+  border: 1px;
+}
+
+/* styling for withdraw page */
+.transaction-wrapper {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  align-content: center;
+  align-items: center;
+}
+
+.transaction-wrapper * {
+  margin-block: 10px;
 }

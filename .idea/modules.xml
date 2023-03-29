@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/cis-atm.iml" filepath="$PROJECT_DIR$/.idea/cis-atm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mongodb-init-data/.idea/mongodb-init-data.iml" filepath="$PROJECT_DIR$/../mongodb-init-data/.idea/mongodb-init-data.iml" />
     </modules>
   </component>
 </project>
