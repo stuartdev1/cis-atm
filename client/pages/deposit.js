@@ -18,11 +18,11 @@ const deposit = () => {
       <h1>Deposit</h1>
       <h2>Available Balance: {balance ? '$' + balance : 'No Money!'}</h2>
       <form>
-        <label htmlFor="account-number">Deposit Amt:</label>
+        <label htmlFor="deposit-amount">Deposit Amount:</label>
         <input
           type="number"
-          id="account-number"
-          name="account-number"
+          id="deposit-amount"
+          name="deposit-amount"
           value={depositAmt}
           onInput={(e) => setDepositAmt(e.target.value)}
         />
