@@ -2,9 +2,13 @@ import Link from "next/link";
 import {useState} from "react";
 
 export default function Home(props) {
-  const [validUser, setValidUser] = useState(false)
+  const [validUser, setValidUser] = useState(true)
   const [accountNumber, setAccountNumber] = useState(props?.value ?? "")
   const [accountPin, setAccountPin] = useState("")
+
+  const validateUser = () => {
+
+  }
 
   return (
     <div>
