@@ -21,7 +21,7 @@ a {
   }
   body {
     color: white;
-    background: blue;
+    background: #99999d;
   }
 }
 
@@ -31,31 +31,43 @@ a {
 }
 
 .atm-button {
-  padding: 10%;
   height: 5rem;
-  width: 10rem;
+  width: 20rem;
   font-size: 1rem;
+  font-weight: bold;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    228deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
 }
 
 .home-links {
-  padding-block-start: 10%;
   display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px;
-  height: 150px;
+  flex-direction: row;
+  flex-wrap: wrap;
   width: 100%;
-  align-content: center;
+  justify-content: center;
 }
 
-.home-link__link {
-  flex: 1 auto;
-  padding-block: 2px;
-  border: 1px;
+.home-link__link-col1 {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-inline-end: 15rem;
+  margin-block: 3rem;
 }
 
-/* styling for withdraw page */
+.home-link__link-col2 {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-block: 3rem;
+}
+
+/* styling for transaction pages */
 .transaction-wrapper {
   display: flex;
   flex-flow: column;

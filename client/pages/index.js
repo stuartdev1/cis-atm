@@ -9,7 +9,7 @@ export default function Home(props) {
   const validateUser = () => {};
 
   return (
-    <div>
+    <div className="atm-wrapper">
       <h1 className="atm-title">Welcome to the Bank of CIS ATM</h1>
       {!validUser && (
         <div>
@@ -41,20 +41,24 @@ export default function Home(props) {
         <>
           <h1 className="atm-title">What type of transaction would you like to make?</h1>
           <div className="home-links">
-            <div className="home-link__link">
-              <Link href="./withdraw">
-                <button className="atm-button">Withdraw</button>
-              </Link>
+            <div className="links-col1">
+              <div className="home-link__link-col1">
+                <Link href="./withdraw">
+                  <button className="atm-button" >Withdraw</button>
+                </Link>
+              </div>
+              <div className="home-link__link-col1">
+                <Link href="./deposit">
+                  <button className="atm-button">Deposit</button>
+                </Link>
+              </div>
             </div>
-            <div className="home-link__link">
-              <Link href="./deposit">
-                <button className="atm-button">Deposit</button>
-              </Link>
-            </div>
-            <div className="home-link__link">
-              <Link href="./inquire">
-                <button className="atm-button">Check balance</button>
-              </Link>
+            <div className="links-col2">
+              <div className="home-link__link-col2">
+                <Link href="./inquire">
+                  <button className="atm-button">Check balance</button>
+                </Link>
+              </div>
             </div>
           </div>
         </>

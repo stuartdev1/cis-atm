@@ -28,7 +28,7 @@ const withdraw = (props) => {
             onInput={(e) => setWithdrawAmt(e.target.value)}
           />
         </form>
-        <button onClick={withdrawMoney}> Withdraw </button>
+        <button className="atm-button" onClick={withdrawMoney}> Withdraw </button>
       </div>
     </>
   );

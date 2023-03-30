@@ -28,7 +28,7 @@ const deposit = () => {
             onInput={(e) => setDepositAmt(e.target.value)}
           />
         </form>
-        <button onClick={depositMoney}> Withdraw </button>
+        <button className="atm-button" onClick={depositMoney}> Withdraw </button>
       </div>
     </>
   );
