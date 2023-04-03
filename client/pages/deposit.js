@@ -6,7 +6,7 @@ const deposit = () => {
   const [balance, setBalance] = useState(10);
 
   const depositMoney = () => {
-    let newBalance = balance + depositAmt;
+    let newBalance = balance + parseInt(depositAmt);
     setBalance(newBalance);
   };
 

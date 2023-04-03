@@ -79,3 +79,20 @@ a {
 .transaction-wrapper * {
   margin-block: 10px;
 }
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-input {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-block-end: 1rem;
+}
+
+.login-label {
+  margin-inline-end: 0.25rem;
+}

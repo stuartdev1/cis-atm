@@ -1,13 +1,36 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import Link from 'next/link';
+import axios from "axios";
+import Cookies from 'js-cookie';
 
-const withdraw = (props) => {
+const Withdraw = (props) => {
   const [withdrawAmt, setWithdrawAmt] = useState('');
-  const [balance, setBalance] = useState(10);
+  const [accountPin, setAccountPin] = useState(null)
+  const [balance, setBalance] = useState(null);
 
-  const withdrawMoney = () => {
-    let newBalance = balance - withdrawAmt;
-    setBalance(newBalance);
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        let userId = Cookies.get("userId");
+        let res = await axios.get(`http://localhost:8000/verify/`, {headers: {userId}} )
+        console.log(res)
+        setBalance(res.data.balance);
+      } catch(e) {
+        console.log(e)
+      }
+    }
+    getUser().catch(console.error);
+  },[])
+
+  const withdrawMoney = async () => {
+    try {
+      let userId = Cookies.get("userId");
+      const res = await axios.put(`http://localhost:8000/update`, {withdrawAmt}, {headers: {userId}});
+      setBalance(res.data);
+    } catch(e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -19,6 +42,7 @@ const withdraw = (props) => {
         <h1>Withdraw</h1>
         <h2>Available Balance: {balance ? '$' + balance : 'No Money!'}</h2>
         <form>
+          <br/>
           <label htmlFor="withdraw-amount">Withdraw Amount:</label>
           <input
             type="number"
@@ -28,10 +52,10 @@ const withdraw = (props) => {
             onInput={(e) => setWithdrawAmt(e.target.value)}
           />
         </form>
-        <button className="atm-button" onClick={withdrawMoney}> Withdraw </button>
+        <button className="atm-button" type="button" onClick={withdrawMoney}> Withdraw </button>
       </div>
     </>
   );
 };
 
-export default withdraw;
+export default Withdraw;

@@ -1,41 +1,112 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require("express");
+const mongoose = require("mongoose");
+const { AccountModel } = require("./models/account-model");
+const bodyParser = require("body-parser");
+require("dotenv").config();
+const cors = require("cors");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const app = express();
 
-var app = express();
+const jsonParser = bodyParser.json();
+const connect = async () => {
+  await mongoose.connect(process.env.MONGODB_URL);
+  console.log("Connected to MongoDB");
+};
+connect().catch((err) => console.log(err));
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
+app.listen(8000, () => console.log("Server is listening on port 8000"));
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+//post
+app.post("/post", jsonParser, async (req, res) => {
+  try {
+    const data = new AccountModel({
+      accountId: req.body.accountId,
+      accountNum: req.body.accountNum,
+      accountPin: req.body.accountPin,
+      balance: req.body.balance,
+    });
+
+    const value = await data.save();
+
+    res.json(value);
+  } catch (e) {
+    console.log(e.message);
+    res.send(e);
+  }
 });
 
-module.exports = app;
+app.put("/update/", jsonParser, async (req, res) => {
+  const filter = { accountId: req.headers.userid };
+  const updateAmt = req.body.withdrawAmt;
+
+  try {
+    let doc = await AccountModel.findOne(filter);
+    doc.balance = doc.balance - updateAmt;
+
+    await doc.save();
+
+    res.json(doc.balance);
+  } catch (e) {
+    res.send(e);
+  }
+});
+
+app.get("/auth/:accountNum/:accountPin", jsonParser, async (req, res) => {
+  let filter1 = {
+    accountNum: req.params.accountNum,
+  };
+  let filter2 = {
+    accountPin: req.params.accountPin,
+  };
+
+  let data = {
+    userId: req.body.userId,
+    isValid: true,
+  };
+
+  try {
+    let userNum = await AccountModel.countDocuments(filter1);
+    let userPin = await AccountModel.countDocuments(filter2);
+    let userId = await AccountModel.findOne(filter1);
+
+    if (userNum > 0 && userPin > 0) {
+      data.isValid = true;
+      data.userId = userId;
+      res.json(data);
+    } else {
+      data.userId = userId;
+      data.isValid = false;
+      res.json(data);
+    }
+  } catch (e) {
+    res.send(e);
+  }
+});
+
+app.get(
+  app.get("/verify/", jsonParser, async (req, res) => {
+    console.log(req.headers);
+    const filter = { accountId: req.headers.userid };
+    console.log("verify");
+    try {
+      const doc = await AccountModel.findOne(filter);
+      res.send(doc);
+    } catch (e) {
+      console.log(e);
+    }
+  })
+);
