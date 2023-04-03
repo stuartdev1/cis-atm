@@ -5,7 +5,6 @@ import Cookies from 'js-cookie';
 
 const Withdraw = (props) => {
   const [withdrawAmt, setWithdrawAmt] = useState('');
-  const [accountPin, setAccountPin] = useState(null)
   const [balance, setBalance] = useState(null);
 
 
@@ -14,7 +13,6 @@ const Withdraw = (props) => {
       try {
         let userId = Cookies.get("userId");
         let res = await axios.get(`http://localhost:8000/verify/`, {headers: {userId}} )
-        console.log(res)
         setBalance(res.data.balance);
       } catch(e) {
         console.log(e)
@@ -26,7 +24,7 @@ const Withdraw = (props) => {
   const withdrawMoney = async () => {
     try {
       let userId = Cookies.get("userId");
-      const res = await axios.put(`http://localhost:8000/update`, {withdrawAmt}, {headers: {userId}});
+      const res = await axios.put(`http://localhost:8000/deposit`, {withdrawAmt}, {headers: {userId}});
       setBalance(res.data);
     } catch(e) {
       console.log(e);

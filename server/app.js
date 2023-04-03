@@ -49,7 +49,7 @@ app.post("/post", jsonParser, async (req, res) => {
   }
 });
 
-app.put("/update/", jsonParser, async (req, res) => {
+app.put("/withdraw/", jsonParser, async (req, res) => {
   const filter = { accountId: req.headers.userid };
   const updateAmt = req.body.withdrawAmt;
 
@@ -65,17 +65,33 @@ app.put("/update/", jsonParser, async (req, res) => {
   }
 });
 
-app.get("/auth/:accountNum/:accountPin", jsonParser, async (req, res) => {
+app.put("/deposit/", jsonParser, async (req, res) => {
+  const filter = { accountId: req.headers.userid };
+  const updateAmt = req.body.depositAmt;
+
+  try {
+    let doc = await AccountModel.findOne(filter);
+    doc.balance = doc.balance +  Number(updateAmt);
+
+    await doc.save();
+
+    res.json(doc.balance);
+  } catch (e) {
+    res.send(e);
+  }
+});
+
+app.get("/auth/", jsonParser, async (req, res) => {
   let filter1 = {
-    accountNum: req.params.accountNum,
+    accountNum: req.headers.accountnum,
   };
   let filter2 = {
-    accountPin: req.params.accountPin,
+    accountPin: req.headers.accountpin,
   };
 
   let data = {
-    userId: req.body.userId,
-    isValid: true,
+    accountId: req.body.accountId,
+    isValid: null,
   };
 
   try {
@@ -99,9 +115,7 @@ app.get("/auth/:accountNum/:accountPin", jsonParser, async (req, res) => {
 
 app.get(
   app.get("/verify/", jsonParser, async (req, res) => {
-    console.log(req.headers);
     const filter = { accountId: req.headers.userid };
-    console.log("verify");
     try {
       const doc = await AccountModel.findOne(filter);
       res.send(doc);

@@ -4,13 +4,13 @@ import Link from 'next/link';
 
 const Validation = () => {
   const [validUser, setValidUser] = useState(false);
-  const [accountNumber, setAccountNumber] = useState('');
+  const [accountNum, setAccountNum] = useState('');
   const [accountPin, setAccountPin] = useState('');
 
   async function validateUser() {
     try {
-      let res = await axios.get(`http://localhost:8000/auth/${accountNumber}/${accountPin}`);
-      console.log(res);
+      let res = await axios.get(`http://localhost:8000/auth/`, {headers: {accountNum, accountPin}});
+      console.log(res.data)
       document.cookie = `userId=${res.data.userId.accountId}`;
       res.data.isValid ? setValidUser(true) : setValidUser(false);
     } catch (e) {
@@ -31,8 +31,8 @@ const Validation = () => {
                 type="number"
                 id="account-number"
                 name="account-number"
-                value={accountNumber}
-                onInput={(e) => setAccountNumber(e.target.value)}
+                value={accountNum}
+                onInput={(e) => setAccountNum(e.target.value)}
               />
             </div>
             <div className="login-input">
