@@ -24,7 +24,7 @@ const Withdraw = (props) => {
   const withdrawMoney = async () => {
     try {
       let userId = Cookies.get("userId");
-      const res = await axios.put(`http://localhost:8000/deposit`, {withdrawAmt}, {headers: {userId}});
+      const res = await axios.put(`http://localhost:8000/withdraw`, {withdrawAmt}, {headers: {userId}});
       setBalance(res.data);
     } catch(e) {
       console.log(e);

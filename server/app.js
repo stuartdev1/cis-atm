@@ -8,12 +8,15 @@ const cors = require("cors");
 const app = express();
 
 const jsonParser = bodyParser.json();
+
+//connect to db
 const connect = async () => {
   await mongoose.connect(process.env.MONGODB_URL);
   console.log("Connected to MongoDB");
 };
 connect().catch((err) => console.log(err));
 
+//add headers to allow localhost access
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   res.header(
@@ -23,14 +26,17 @@ app.use(function (req, res, next) {
   next();
 });
 
+//use cors to allow localhost access
 app.use(
   cors({
     origin: "http://localhost:3000",
   })
 );
+
+//initiate server port
 app.listen(8000, () => console.log("Server is listening on port 8000"));
 
-//post
+//add user
 app.post("/post", jsonParser, async (req, res) => {
   try {
     const data = new AccountModel({
@@ -49,6 +55,7 @@ app.post("/post", jsonParser, async (req, res) => {
   }
 });
 
+//withdraw money
 app.put("/withdraw/", jsonParser, async (req, res) => {
   const filter = { accountId: req.headers.userid };
   const updateAmt = req.body.withdrawAmt;
@@ -65,6 +72,7 @@ app.put("/withdraw/", jsonParser, async (req, res) => {
   }
 });
 
+//deposit money
 app.put("/deposit/", jsonParser, async (req, res) => {
   const filter = { accountId: req.headers.userid };
   const updateAmt = req.body.depositAmt;
@@ -81,6 +89,7 @@ app.put("/deposit/", jsonParser, async (req, res) => {
   }
 });
 
+//authorize user
 app.get("/auth/", jsonParser, async (req, res) => {
   let filter1 = {
     accountNum: req.headers.accountnum,
@@ -113,6 +122,7 @@ app.get("/auth/", jsonParser, async (req, res) => {
   }
 });
 
+//verify user account within financial operations
 app.get(
   app.get("/verify/", jsonParser, async (req, res) => {
     const filter = { accountId: req.headers.userid };
