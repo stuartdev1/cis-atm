@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import Typed from 'typed.js';
+import Cookies from "js-cookie";
 
 
 const Validation = () => {
@@ -18,6 +19,11 @@ const Validation = () => {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  const logout = () => {
+    Cookies.remove("userId");
+    location.reload();
   }
 
   const element = useRef(null);
@@ -46,6 +52,27 @@ const Validation = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        let userId = Cookies.get("userId");
+        let res = await axios.get(`http://localhost:8000/verify/`, {headers: {userId}} )
+        console.log(res.data)
+        if(res.data.accountId === Cookies.get("userId")) {
+          setValidUser(false);
+          console.log("yes")
+        }
+        else {
+          setValidUser(true);
+          console.log("no")
+        }
+      } catch(e) {
+        console.log(e)
+      }
+    }
+    getUser().catch(console.error);
+  })
+
 
   return (
     <div className="atm-wrapper">
@@ -58,7 +85,6 @@ const Validation = () => {
                 type="number"
                 id="account-number"
                 name="account-number"
-                value={accountNum}
                 onInput={(e) => setAccountNum(e.target.value)} />
             </div>
             <div className="login-input">
@@ -67,7 +93,6 @@ const Validation = () => {
                 type="password"
                 id="account-pin"
                 name="account-pin"
-                value={accountPin}
                 onInput={(e) => setAccountPin(e.target.value)} />
             </div>
             <br></br>
@@ -82,6 +107,7 @@ const Validation = () => {
       )}
       {validUser && (
         <>
+          <button onClick={logout}>{"Logout"}</button>
           <h1 className="home-title">SELECT A TRANSACTION</h1>
           <div className="home-links">
             <div className="links-col1">
