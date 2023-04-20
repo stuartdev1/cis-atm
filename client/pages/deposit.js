@@ -3,10 +3,15 @@ import axios from "axios";
 import Link from "next/link";
 import {useEffect, useState} from "react";
 
+
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
 const deposit = () => {
   const [depositAmt, setDepositAmt] = useState(null);
   const [balance, setBalance] = useState(null);
-
 
   useEffect(() => {
     const getUser = async () => {
@@ -38,12 +43,11 @@ const deposit = () => {
         <button>{'<- Back'}</button>
       </Link>
       <div className="transaction-wrapper">
-        <h1>Deposit</h1>
-        <h2>Available Balance: {balance ? '$' + balance : 'No Money!'}</h2>
-        <form>
+        <h2 className="trans-balance">{balance ? formatter.format(balance) : 'No Money!'}</h2>
+        <form className="trans-form">
           <br/>
-          <label htmlFor="deposit-amount">Deposit Amount:</label>
-          <input
+          <label className="trans-label" htmlFor="deposit-amount">Enter amount to deposit</label>
+          <input className="input-bar"
             type="number"
             id="deposit-amount"
             name="deposit-amount"
@@ -51,7 +55,7 @@ const deposit = () => {
             onInput={(e) => setDepositAmt(e.target.value)}
           />
         </form>
-        <button className="atm-button" type="button" onClick={depositMoney}> Deposit </button>
+        <button className="atm-button" type="button" onClick={depositMoney}>DEPOSIT</button>
       </div>
     </>
   );

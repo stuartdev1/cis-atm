@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import Typed from 'typed.js';
+
 
 const Validation = () => {
   const [validUser, setValidUser] = useState(false);
@@ -18,63 +20,80 @@ const Validation = () => {
     }
   }
 
+  const element = useRef(null);
+
+  useEffect(() => {
+    const typed = new Typed(".atm-title", {
+      strings: ["WELCOME TO THE BANK OF CIS ATM"],
+      typeSpeed: 10,
+      showCursor: false
+    })
+
+    return () => {
+      typed.destroy();
+    }
+  }, []);
+
+  useEffect(() => {
+    const typed = new Typed(".num-pin-text", {
+      strings: ["^1250PLEASE ENTER YOUR ACCOUNT NUMBER AND PIN:"],
+      typeSpeed: 10,
+      showCursor: false
+    })
+
+    return () => {
+      typed.destroy();
+    }
+  }, []);
+
+
   return (
     <div className="atm-wrapper">
-      <h1 className="atm-title">Welcome to the Bank of CIS ATM</h1>
       {!validUser && (
-        <div className="login-page">
+        <><h1 className="atm-title" ref={element} /><h2 className="num-pin-text"></h2><br></br><div className="login-page">
           <form>
-            <h2>Enter your account number and pin</h2>
             <div className="login-input">
-              <label htmlFor="account-number" className="login-label">Account Number:</label>
-              <input
+              <label htmlFor="account-number" className="login-label"></label>
+              <input className="input-bar"
                 type="number"
                 id="account-number"
                 name="account-number"
                 value={accountNum}
-                onInput={(e) => setAccountNum(e.target.value)}
-              />
+                onInput={(e) => setAccountNum(e.target.value)} />
             </div>
             <div className="login-input">
-              <label htmlFor="account-pin" className="login-label">Account Pin:</label>
-              <input
-                type="number"
+              <label htmlFor="account-pin" className="login-label"></label>
+              <input className="input-bar"
+                type="password"
                 id="account-pin"
                 name="account-pin"
                 value={accountPin}
-                onInput={(e) => setAccountPin(e.target.value)}
-              />
+                onInput={(e) => setAccountPin(e.target.value)} />
             </div>
+            <br></br>
+            <br></br>
             <div className="login-input">
               <button type="button" className="atm-button" onClick={validateUser}>
-                Verify
+                CONFIRM
               </button>
             </div>
           </form>
-        </div>
+        </div></>
       )}
       {validUser && (
         <>
-          <h1 className="atm-title">What type of transaction would you like to make?</h1>
+          <h1 className="home-title">SELECT A TRANSACTION</h1>
           <div className="home-links">
             <div className="links-col1">
-              <div className="home-link__link-col1">
-                <Link href="./withdraw">
-                  <button className="atm-button">Withdraw</button>
-                </Link>
-              </div>
-              <div className="home-link__link-col1">
-                <Link href="./deposit">
-                  <button className="atm-button">Deposit</button>
-                </Link>
-              </div>
-            </div>
-            <div className="links-col2">
-              <div className="home-link__link-col2">
                 <Link href="./inquire">
-                  <button className="atm-button">Check balance</button>
+                  <button className="select-button">CHECK BALANCE</button>
                 </Link>
-              </div>
+                <Link href="./withdraw">
+                  <button className="atm-button">WITHDRAW</button>
+                </Link>
+                <Link href="./deposit">
+                  <button className="atm-button">DEOPSIT</button>
+                </Link>
             </div>
           </div>
         </>

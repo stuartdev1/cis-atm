@@ -3,7 +3,10 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import {useEffect, useState} from "react";
 
-
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
 
 const inquire = () => {
 
@@ -28,8 +31,8 @@ const inquire = () => {
         <button>{'<- Back'}</button>
       </Link>
       <div className="transaction-wrapper">
-        <h1>Balance Inquiry</h1>
-        <h2>Your current balance is: {balance}</h2>
+        <h2>CURRENT BALANCE:</h2>
+        <h2 className="trans-currBalance">{formatter.format(balance)}</h2>
       </div>
     </>
   );

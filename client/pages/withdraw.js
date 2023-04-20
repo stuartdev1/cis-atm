@@ -3,6 +3,11 @@ import Link from 'next/link';
 import axios from "axios";
 import Cookies from 'js-cookie';
 
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
 const Withdraw = (props) => {
   const [withdrawAmt, setWithdrawAmt] = useState('');
   const [balance, setBalance] = useState(null);
@@ -37,12 +42,11 @@ const Withdraw = (props) => {
         <button>{'<- Back'}</button>
       </Link>
       <div className="transaction-wrapper">
-        <h1>Withdraw</h1>
-        <h2>Available Balance: {balance ? '$' + balance : 'No Money!'}</h2>
-        <form>
+        <h2 className="trans-balance">{balance ? formatter.format(balance) : 'No Money!'}</h2>
+        <form className="trans-form">
           <br/>
-          <label htmlFor="withdraw-amount">Withdraw Amount:</label>
-          <input
+          <label className="trans-label" htmlFor="withdraw-amount">Enter an amount to withdraw</label><br></br>
+          <input className="input-bar"
             type="number"
             id="withdraw-amount"
             name="withdraw-amount"
@@ -50,7 +54,8 @@ const Withdraw = (props) => {
             onInput={(e) => setWithdrawAmt(e.target.value)}
           />
         </form>
-        <button className="atm-button" type="button" onClick={withdrawMoney}> Withdraw </button>
+        <br></br>
+        <button className="atm-button" type="button" onClick={withdrawMoney}>WITHDRAW</button>
       </div>
     </>
   );

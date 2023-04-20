@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
-    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body {
+  color: #F9F5EB;
+  background: #002B5B;
 }
 
 a {
@@ -13,6 +18,7 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: 'Work Sans', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,52 +26,116 @@ a {
     color-scheme: dark;
   }
   body {
-    color: white;
-    background: #99999d;
+    color: #F9F5EB;
+    background: #002B5B;
   }
 }
 
 /* styling for landing page */
+.atm-wrapper {
+  margin: 0;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.num-pin-text {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
 .atm-title {
+  text-align: center;
+  font-weight: 300;
+  font-size: 3.5rem;
+}
+
+.home-title {
+  text-align: center;
+  font-weight: 300;
+  font-size: 3rem;
+}
+
+#date-time {
   text-align: center;
 }
 
 .atm-button {
-  height: 5rem;
+  height: 4rem;
   width: 20rem;
-  font-size: 1rem;
-  font-weight: bold;
-  background: rgb(2, 0, 36);
+  font-size: 1.5rem;
+  font-weight: 500;
   background: linear-gradient(
-    228deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 9, 121, 1) 35%,
-    rgba(0, 212, 255, 1) 100%
+    0deg,
+    #e42626,
+    #e85959,
+    #ec8989
   );
+  border-radius: 30px;
+  margin: 1rem;
+  box-shadow: 0;
+  border: 0;
 }
 
-.home-links {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-  justify-content: center;
+.select-button {
+  height: 4rem;
+  width: 20rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  background: linear-gradient(
+    0deg,
+    #837762,
+    #a29887,
+    #c9bdad
+  );
+  border-radius: 30px;
+  margin: 1rem;
+  box-shadow: 0;
+  border: 0;
 }
 
-.home-link__link-col1 {
+.input-bar {
+  background-color:#021e3e;
+  color: #F9F5EB;
+  border-radius: 30px;
+  height: 3rem;
+  width: 20rem;
+  font-size: 1.5rem;
+  text-align: center;
+  box-shadow: 0;
+  border: 0;
+}
+
+.links-col1 {
   display: flex;
   flex-direction: column;
   flex: 1;
   margin-inline-end: 15rem;
   margin-block: 3rem;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
-.home-link__link-col2 {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  margin-block: 3rem;
+.login-page {
+  animation: 4s ease 0s normal forwards 1 fadein;
+  -webkit-animation:3s ease 0s normal forwards 1 fadein;
+  opacity:1;
 }
+  
+  @keyframes fadein{
+      0%{opacity:0}
+      80%{opacity:0}
+      100%{opacity:1}
+  }
+  
+  @-webkit-keyframes fadein{
+      0%{opacity:0}
+      80%{opacity:0}
+      100%{opacity:1}
+  }
 
 /* styling for transaction pages */
 .transaction-wrapper {
@@ -78,6 +148,7 @@ a {
 
 .transaction-wrapper * {
   margin-block: 10px;
+  margin-top: 50px;
 }
 
 .login-page {
@@ -86,10 +157,35 @@ a {
   justify-content: center;
 }
 
+.trans-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.trans-label {
+  font-size: 2.25rem;
+  font-weight: 300;
+}
+
+.trans-balance {
+  font-weight: 500;
+  letter-spacing: 2px;;
+  font-size: 1.5rem;
+}
+
+.trans-currBalance {
+  font-size: 4rem;
+  font-weight: 300;
+  color: #EA5455;
+  letter-spacing: 2px;
+}
+
 .login-input {
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
   margin-block-end: 1rem;
 }
 
