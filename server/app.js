@@ -1,20 +1,14 @@
-const express = require("express");
-const mongoose = require("mongoose");
 const { AccountModel } = require("./models/account-model");
 const bodyParser = require("body-parser");
-require("dotenv").config();
 const cors = require("cors");
+require("dotenv").config();
+const express = require("express");
+const jsonParser = bodyParser.json();
+const mongoose = require("mongoose");
 
+//Initiate app
 const app = express();
 
-const jsonParser = bodyParser.json();
-
-//connect to db
-const connect = async () => {
-  await mongoose.connect(process.env.MONGODB_URL);
-  console.log("Connected to MongoDB");
-};
-connect().catch((err) => console.log(err));
 
 //add headers to allow localhost access
 app.use(function (req, res, next) {
@@ -32,6 +26,13 @@ app.use(
     origin: "http://localhost:3000",
   })
 );
+
+//connect to db
+const connect = async () => {
+  await mongoose.connect(process.env.MONGODB_URL);
+  console.log("Connected to MongoDB");
+};
+connect().catch((err) => console.log(err));
 
 //initiate server port
 app.listen(8000, () => console.log("Server is listening on port 8000"));
@@ -79,10 +80,9 @@ app.put("/deposit/", jsonParser, async (req, res) => {
 
   try {
     let doc = await AccountModel.findOne(filter);
-    doc.balance = doc.balance +  Number(updateAmt);
+    doc.balance = doc.balance + Number(updateAmt);
 
     await doc.save();
-
     res.json(doc.balance);
   } catch (e) {
     res.send(e);
@@ -123,14 +123,12 @@ app.get("/auth/", jsonParser, async (req, res) => {
 });
 
 //verify user account within financial operations
-app.get(
-  app.get("/verify/", jsonParser, async (req, res) => {
-    const filter = { accountId: req.headers.userid };
-    try {
-      const doc = await AccountModel.findOne(filter);
-      res.send(doc);
-    } catch (e) {
-      console.log(e);
-    }
-  })
-);
+app.get("/verify/", jsonParser, async (req, res) => {
+  const filter = { accountId: req.headers.userid };
+  try {
+    const doc = await AccountModel.findOne(filter);
+    res.send(doc);
+  } catch (e) {
+    console.log(e);
+  }
+});
