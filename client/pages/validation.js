@@ -57,14 +57,11 @@ const Validation = () => {
       try {
         let userId = Cookies.get("userId");
         let res = await axios.get(`http://localhost:8000/verify/`, {headers: {userId}} )
-        console.log(res.data)
         if(res.data.accountId === Cookies.get("userId")) {
           setValidUser(false);
-          console.log("yes")
         }
         else {
           setValidUser(true);
-          console.log("no")
         }
       } catch(e) {
         console.log(e)
