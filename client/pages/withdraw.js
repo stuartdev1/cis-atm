@@ -39,7 +39,7 @@ const Withdraw = (props) => {
   return (
     <>
       <Link href="/">
-        <button>{'<- Back'}</button>
+        <button className="back-button">{'<- Back'}</button>
       </Link>
       <div className="transaction-wrapper">
         <h2 className="trans-balance">{balance ? formatter.format(balance) : 'No Money!'}</h2>

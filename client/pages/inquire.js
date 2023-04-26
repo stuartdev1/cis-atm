@@ -28,7 +28,7 @@ const inquire = () => {
   return (
     <>
       <Link href="/">
-        <button>{'<- Back'}</button>
+        <button className="back-button">{'<- Back'}</button>
       </Link>
       <div className="transaction-wrapper">
         <h2>CURRENT BALANCE:</h2>

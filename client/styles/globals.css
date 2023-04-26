@@ -74,9 +74,12 @@ a {
     #ec8989
   );
   border-radius: 30px;
-  margin: 1rem;
   box-shadow: 0;
   border: 0;
+}
+
+.atm-button:hover {
+  cursor: pointer;
 }
 
 .select-button {
@@ -91,9 +94,12 @@ a {
     #c9bdad
   );
   border-radius: 30px;
-  margin: 1rem;
   box-shadow: 0;
   border: 0;
+}
+
+.select-button:hover {
+  cursor: pointer;
 }
 
 .input-bar {
@@ -115,8 +121,12 @@ a {
   margin-inline-end: 15rem;
   margin-block: 3rem;
   width: 100%;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+}
+
+.atm-link {
+  margin-block: 0.75rem;
 }
 
 .login-page {
@@ -167,6 +177,7 @@ a {
 .trans-label {
   font-size: 2.25rem;
   font-weight: 300;
+  margin-inline: 2rem;
 }
 
 .trans-balance {
@@ -192,3 +203,27 @@ a {
 .login-label {
   margin-inline-end: 0.25rem;
 }
+
+.logout-button {
+  margin-inline-start: 1.5rem;
+  padding: 0.75rem;
+  border-radius: 30px;
+  border: 2px black;
+}
+
+.back-button {
+  margin-block-start: 30px;
+  margin-inline-start: 1.5rem;
+  padding: 0.75rem;
+  border-radius: 30px;
+  border: 2px black;
+}
+
+.logout-button:hover {
+  cursor: pointer;
+}
+
+.back-button:hover {
+  cursor: pointer;
+}
+

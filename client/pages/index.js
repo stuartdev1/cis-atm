@@ -1,7 +1,7 @@
-import Validation from "./validation";
+import Landing from "./Landing";
 
 export default function Home() {
   return (
-    <Validation />
+    <Landing />
   )
 }
